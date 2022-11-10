@@ -4,6 +4,7 @@ import 'package:pillendar_app/settings.dart';
 class i18n {
   static const Map<String, String> _es = {
     "Login_view_title": "Pillendar",
+    "Login_view_socials_login_title": "Ingresar con:",
     "Login_view_email_input_label": "Correo",
     "Login_view_email_input_hint": "Escriba su correo",
     "Login_view_email_input_incorrect": "Escriba un email correcto",
@@ -13,10 +14,13 @@ class i18n {
     "Login_view_login_submit_button": "Ingresar",
     "Login_view_forget_password_button": "Olvidé mi contraseña",
     "Login_view_create_new_profile_button": "Todavía no tengo una cuenta",
+    "Development_mesaje":
+        "Lo sentimos, estamos trabajando sobre esta funcionalidad",
   };
 
   static const Map<String, String> _en = {
     "Login_view_title": "Pillendar",
+    "Login_view_socials_login_title": "Login with:",
     "Login_view_email_input_label": "Email",
     "Login_view_email_input_hint": "Type an email",
     "Login_view_email_input_incorrect": "Type a correct email",
@@ -26,6 +30,7 @@ class i18n {
     "Login_view_login_submit_button": "Login",
     "Login_view_forget_password_button": "I forgot my password",
     "Login_view_create_new_profile_button": "I don't have an account yet",
+    "Development_mesaje": "We are sorry, we still working on this feature",
   };
 
   static String getText(String key) {

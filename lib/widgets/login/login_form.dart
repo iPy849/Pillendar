@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pillendar_app/i18n.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 
@@ -41,7 +42,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
         children: [
           Center(
             child: Text(i18n.getText("Login_view_title"),
-                style: AppTextStyle.heading_1),
+                style: AppTextStyle.headingWhite_1),
           ),
           const SizedBox(
             height: AppStyleConstants.separation,
@@ -118,6 +119,28 @@ class _LoginFormState extends State<LoginForm> with Utils {
               i18n.getText("Login_view_forget_password_button"),
               style: AppTextStyle.smallText,
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(i18n.getText("Development_mesaje")),
+                    ),
+                  );
+                },
+                icon: SvgPicture.asset("assets/facebook_logo.svg"),
+                padding: EdgeInsets.zero,
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset("assets/google_logo.svg"),
+                padding: EdgeInsets.zero,
+              ),
+            ],
           ),
         ],
       ),
