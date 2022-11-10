@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pillendar_app/navigation/navigation.dart';
 import 'package:pillendar_app/theme/theme.dart';
-import 'package:pillendar_app/views/login.dart';
 
 void main() {
   initSettings();
@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: AppTheme().getTheme(),
       debugShowCheckedModeBanner: false,
-      home: const LoginView(title: 'Pillendar'),
+      initialRoute: Navigation.routes[0].path,
+      routes: Navigation.getRoutes(context),
     );
   }
 }

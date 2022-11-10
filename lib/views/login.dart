@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:pillendar_app/theme/theme.dart';
+import 'package:pillendar_app/firebase/index.dart';
+import 'package:pillendar_app/theme/index.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/widgets/login/login_form.dart';
 
-class LoginView extends StatelessWidget with Utils {
-  const LoginView({super.key, required this.title});
-
-  final String title;
+class LoginView extends StatelessWidget with Utils, FirebaseAuthController {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.darkPrimary,
+      resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           hideKeyboard();

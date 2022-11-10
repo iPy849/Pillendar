@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pillendar_app/i18n.dart';
 import 'package:pillendar_app/utils/Utils.dart';
-
-import '../../theme/theme.dart';
+import 'package:pillendar_app/theme/index.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -17,19 +16,6 @@ class _LoginFormState extends State<LoginForm> with Utils {
   late String emailValue;
   late String password;
   final _formKey = GlobalKey<FormState>();
-  late FocusNode _focusNode;
-
-  @override
-  void dispose() {
-    super.dispose();
-    _focusNode.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +39,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
               if (v == null || v.isEmpty || !EmailValidator.validate(v)) {
                 return i18n.getText("Login_view_email_input_incorrect");
               }
+              return null;
             },
             decoration: InputDecoration(
               hintText: i18n.getText("Login_view_email_input_hint"),
@@ -71,6 +58,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
               if (v == null || v.isEmpty) {
                 return i18n.getText("Login_view_password_input_incorrect");
               }
+              return null;
             },
             obscureText: true,
             decoration: InputDecoration(
@@ -106,25 +94,55 @@ class _LoginFormState extends State<LoginForm> with Utils {
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              i18n.getText("Login_view_create_new_profile_button"),
-              style: AppTextStyle.smallText,
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () => navigateToPath("/register", context),
+                  child: Text(
+                    i18n.getText("Login_view_create_new_profile_button"),
+                    style: AppTextStyle.smallText,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => navigateToPath("/forgot_password", context),
+                  child: Text(
+                    i18n.getText("Login_view_forget_password_button"),
+                    style: AppTextStyle.smallText,
+                  ),
+                ),
+              ],
             ),
           ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              i18n.getText("Login_view_forget_password_button"),
-              style: AppTextStyle.smallText,
-            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: AppStyleConstants.separation),
+            child: Text(i18n.getText("Login_view_socials_login_title"),
+                style: AppTextStyle.heading_3),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: EdgeInsets.zero,
+                ),
+                child: ElevatedButton.icon(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(i18n.getText("Development_mesaje")),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset("assets/facebook_logo.svg"),
+                    label: const Text("Facebook")),
+              ),
+              ElevatedButton(
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -132,13 +150,20 @@ class _LoginFormState extends State<LoginForm> with Utils {
                     ),
                   );
                 },
-                icon: SvgPicture.asset("assets/facebook_logo.svg"),
-                padding: EdgeInsets.zero,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset("assets/google_logo.svg"),
-                padding: EdgeInsets.zero,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: EdgeInsets.zero,
+                ),
+                child: ElevatedButton.icon(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(i18n.getText("Development_mesaje")),
+                        ),
+                      );
+                    },
+                    icon: SvgPicture.asset("assets/google_logo.svg"),
+                    label: const Text("Google")),
               ),
             ],
           ),
