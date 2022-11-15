@@ -25,6 +25,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
+        verticalDirection: VerticalDirection.down,
         children: [
           Center(
             child: Text(i18n.getText("Login_view_title"),

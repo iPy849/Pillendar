@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pillendar_app/navigation/navigation.dart';
 import 'package:pillendar_app/theme/theme.dart';
 
@@ -9,6 +10,13 @@ void main() {
 
 void initSettings() {
   // TODO: Ajustar las variables globales como el idioma
+
+  // Ajuste de orientación de pantalla
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }
 
 class MyApp extends StatelessWidget {

@@ -9,4 +9,8 @@ mixin Utils {
   void navigateToPath(String path, BuildContext context) {
     Navigator.pushNamed(context, path);
   }
+
+  void goToPreviosPath(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

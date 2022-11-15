@@ -16,6 +16,12 @@ class i18n {
     "Login_view_create_new_profile_button": "Todavía no tengo una cuenta",
     "Development_mesaje":
         "Lo sentimos, estamos trabajando sobre esta funcionalidad",
+    "Register_view_title": "Registra tu nuevo perfil",
+    "Register_view_repeat_password_input_label": "Confirme su contraseña",
+    "Register_view_repeat_password_input_hint": "Reescriba su contraseña",
+    "Register_view_repeat_password_input_incorrect":
+        "Su contraseña no coincide con la anterior",
+    "Register_view_return_to_login": "Volver a inicio"
   };
 
   static const Map<String, String> _en = {
@@ -31,6 +37,12 @@ class i18n {
     "Login_view_forget_password_button": "I forgot my password",
     "Login_view_create_new_profile_button": "I don't have an account yet",
     "Development_mesaje": "We are sorry, we still working on this feature",
+    "Register_view_title": "Register your new profile",
+    "Register_view_repeat_password_input_label": "Password Confirmation",
+    "Register_view_repeat_password_input_hint": "Write your password again",
+    "Register_view_repeat_password_input_incorrect":
+        "Your password does not match each other",
+    "Register_view_return_to_login": "Go back to Login"
   };
 
   static String getText(String key) {
