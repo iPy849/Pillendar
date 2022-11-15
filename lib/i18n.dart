@@ -21,7 +21,9 @@ class i18n {
     "Register_view_repeat_password_input_hint": "Reescriba su contraseña",
     "Register_view_repeat_password_input_incorrect":
         "Su contraseña no coincide con la anterior",
-    "Register_view_return_to_login": "Volver a inicio"
+    "Register_view_return_to_login": "Volver a inicio",
+    "Forgot_password_view_title": "Olvidé mi contraseña",
+    "Forgot_password_view_login_submit_button": "Recuperar mi contraseña",
   };
 
   static const Map<String, String> _en = {
@@ -42,7 +44,9 @@ class i18n {
     "Register_view_repeat_password_input_hint": "Write your password again",
     "Register_view_repeat_password_input_incorrect":
         "Your password does not match each other",
-    "Register_view_return_to_login": "Go back to Login"
+    "Register_view_return_to_login": "Go back to Login",
+    "Forgot_password_view_title": "I forgot my password",
+    "Forgot_password_view_login_submit_button": "Recover my password",
   };
 
   static String getText(String key) {

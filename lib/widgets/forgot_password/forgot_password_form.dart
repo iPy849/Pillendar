@@ -4,15 +4,14 @@ import 'package:pillendar_app/i18n.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/theme/index.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+class ForgotPasswordForm extends StatefulWidget {
+  const ForgotPasswordForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<ForgotPasswordForm> createState() => _ForgotPasswordForm();
 }
 
-class _RegisterFormState extends State<RegisterForm> with Utils {
-  late String? password;
+class _ForgotPasswordForm extends State<ForgotPasswordForm> with Utils {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,7 +24,7 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
         mainAxisSize: MainAxisSize.min,
         children: [
           Center(
-            child: Text(i18n.getText("Register_view_title"),
+            child: Text(i18n.getText("Forgot_password_view_title"),
                 style: AppTextStyle.heading_1),
           ),
           const SizedBox(
@@ -51,49 +50,6 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
               ),
             ),
           ),
-          TextFormField(
-            validator: (v) {
-              password = v;
-              if (v == null || v.isEmpty) {
-                return i18n.getText("Login_view_password_input_incorrect");
-              }
-              return null;
-            },
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText: i18n.getText("Login_view_password_input_hint"),
-              label: Text(
-                i18n.getText("Login_view_password_input_label"),
-                style: const TextStyle(color: AppColors.darkPrimary),
-              ),
-              icon: const Icon(
-                Icons.password_outlined,
-                color: AppColors.darkPrimary,
-              ),
-            ),
-          ),
-          TextFormField(
-            validator: (v) {
-              if (v == null || v.isEmpty || v != password) {
-                return i18n
-                    .getText("Register_view_repeat_password_input_incorrect");
-              }
-              return null;
-            },
-            obscureText: true,
-            decoration: InputDecoration(
-              hintText:
-                  i18n.getText("Register_view_repeat_password_input_hint"),
-              label: Text(
-                i18n.getText("Register_view_repeat_password_input_label"),
-                style: const TextStyle(color: AppColors.darkPrimary),
-              ),
-              icon: const Icon(
-                Icons.password_outlined,
-                color: AppColors.darkPrimary,
-              ),
-            ),
-          ),
           Container(
             margin: const EdgeInsets.symmetric(
                 vertical: AppStyleConstants.separation),
@@ -104,13 +60,13 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Datos correctos')),
+                    const SnackBar(content: Text('Recuperando contraseña')),
                   );
                 }
                 hideKeyboard();
               },
               child: Text(
-                i18n.getText("Login_view_login_submit_button"),
+                i18n.getText("Forgot_password_view_login_submit_button"),
                 textAlign: TextAlign.center,
               ),
             ),

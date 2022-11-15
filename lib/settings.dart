@@ -1,5 +1,5 @@
 class Settings {
   // Los lenguajes solo son "es" y "en"
-  static String lang = "es";
+  static String lang = "en";
   static bool isDarkTheme = false;
 }
