@@ -110,7 +110,7 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
                 hideKeyboard();
               },
               child: Text(
-                i18n.getText("Login_view_login_submit_button"),
+                i18n.getText("Register_view_register_submit_button"),
                 textAlign: TextAlign.center,
               ),
             ),

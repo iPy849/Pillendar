@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pillendar_app/i18n.dart';
+import 'package:pillendar_app/settings.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/theme/index.dart';
 
@@ -16,6 +17,17 @@ class _LoginFormState extends State<LoginForm> with Utils {
   late String emailValue;
   late String password;
   final _formKey = GlobalKey<FormState>();
+
+  void loginLogic() {
+    if (_formKey.currentState!.validate() || Settings.bypassAuth) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Bienvenido ${Settings.testUser.username}"),
+        ),
+      );
+    }
+    hideKeyboard();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +93,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                }
-                hideKeyboard();
-              },
+              onPressed: loginLogic,
               child: Text(
                 i18n.getText("Login_view_login_submit_button"),
                 textAlign: TextAlign.center,

@@ -66,7 +66,7 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> with Utils {
                 hideKeyboard();
               },
               child: Text(
-                i18n.getText("Forgot_password_view_login_submit_button"),
+                i18n.getText("Forgot_password_view_submit_button"),
                 textAlign: TextAlign.center,
               ),
             ),
