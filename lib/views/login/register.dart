@@ -9,12 +9,14 @@ class RegisterView extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          hideKeyboard();
-        },
-        child: const CenterPanelWidget(
-          child: RegisterForm(),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () {
+            hideKeyboard();
+          },
+          child: const CenterPanelWidget(
+            child: RegisterForm(),
+          ),
         ),
       ),
     );

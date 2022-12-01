@@ -5,7 +5,7 @@ import 'package:pillendar_app/views/index.dart';
 
 class Navigation {
   static final List<RouteModel> routes = [
-    RouteModel("/", const EntrypointView()),
+    RouteModel("/main", const MainView()),
     RouteModel("/login", const LoginView()),
     RouteModel("/register", const RegisterView()),
     RouteModel("/forgot_password", const ForgotPasswordView()),

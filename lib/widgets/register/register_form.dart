@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pillendar_app/firebase/index.dart';
 import 'package:pillendar_app/i18n.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/theme/index.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -12,8 +14,28 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> with Utils {
+  late String? email;
   late String? password;
   final _formKey = GlobalKey<FormState>();
+
+  void registerUser(BuildContext context) {
+    FirebaseAuthController firebaseAuthController =
+        Provider.of<FirebaseAuthController>(context, listen: false);
+    firebaseAuthController.firebaseCreateUser(email!, password!).then(
+      (user) {
+        if (user == null) {
+          showToast(context, i18n.getText("Register_view_auth_error_toast"));
+          return;
+        }
+
+        showToast(context, i18n.getText("Register_view_auth_success_toast"));
+        Future.delayed(
+          const Duration(seconds: 3),
+          () => replaceCurrentPath("/login", context),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +56,7 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             validator: (v) {
+              email = v;
               if (v == null || v.isEmpty || !EmailValidator.validate(v)) {
                 return i18n.getText("Login_view_email_input_incorrect");
               }
@@ -103,9 +126,7 @@ class _RegisterFormState extends State<RegisterForm> with Utils {
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Datos correctos')),
-                  );
+                  registerUser(context);
                 }
                 hideKeyboard();
               },

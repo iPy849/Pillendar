@@ -1,10 +1,11 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
+import 'package:pillendar_app/firebase/firebase_auth_controller.dart';
 import 'package:pillendar_app/i18n.dart';
-import 'package:pillendar_app/settings.dart';
-import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/theme/index.dart';
+import 'package:pillendar_app/utils/Utils.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -18,14 +19,20 @@ class _LoginFormState extends State<LoginForm> with Utils {
   late String password;
   final _formKey = GlobalKey<FormState>();
 
-  void loginLogic() {
-    if (_formKey.currentState!.validate() || Settings.bypassAuth) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Bienvenido ${Settings.testUser.username}"),
-        ),
-      );
-    }
+  void loginLogic(BuildContext context) {
+    FirebaseAuthController firebaseAuthController =
+        Provider.of<FirebaseAuthController>(context, listen: false);
+    // Llamada de autenticación
+    firebaseAuthController.firebaseAuthenticate(emailValue, password).then(
+      (user) {
+        if (user == null) {
+          showToast(context, i18n.getText("Login_view_auth_error_toast"));
+          return;
+        }
+        replaceCurrentPath("/main", context);
+      },
+    );
+
     hideKeyboard();
   }
 
@@ -49,6 +56,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             validator: (v) {
+              emailValue = v ?? "";
               if (v == null || v.isEmpty || !EmailValidator.validate(v)) {
                 return i18n.getText("Login_view_email_input_incorrect");
               }
@@ -68,6 +76,7 @@ class _LoginFormState extends State<LoginForm> with Utils {
           ),
           TextFormField(
             validator: (v) {
+              password = v ?? "";
               if (v == null || v.isEmpty) {
                 return i18n.getText("Login_view_password_input_incorrect");
               }
@@ -93,7 +102,11 @@ class _LoginFormState extends State<LoginForm> with Utils {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),
-              onPressed: loginLogic,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  loginLogic(context);
+                }
+              },
               child: Text(
                 i18n.getText("Login_view_login_submit_button"),
                 textAlign: TextAlign.center,

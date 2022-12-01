@@ -34,7 +34,7 @@ class AppTextStyle {
   static const TextStyle headingWhite_3 = TextStyle(
       color: AppColors.white, fontSize: 20, fontWeight: FontWeight.w500);
 
-  static const TextStyle textWhite_ = TextStyle(
+  static const TextStyle textWhite = TextStyle(
       color: AppColors.white, fontSize: 16, fontWeight: FontWeight.w400);
 
   static const TextStyle smallWhiteText = TextStyle(

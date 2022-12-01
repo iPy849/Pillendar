@@ -9,12 +9,14 @@ class ForgotPasswordView extends StatelessWidget with Utils {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          hideKeyboard();
-        },
-        child: const CenterPanelWidget(
-          child: ForgotPasswordForm(),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () {
+            hideKeyboard();
+          },
+          child: const CenterPanelWidget(
+            child: ForgotPasswordForm(),
+          ),
         ),
       ),
     );

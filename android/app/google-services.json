@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "648937385856",
+    "project_id": "pillendar-8ac03",
+    "storage_bucket": "pillendar-8ac03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648937385856:android:b8c3bd01fc121a280c5b65",
+        "android_client_info": {
+          "package_name": "com.example.pillendar_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648937385856-rgq8aa8348ljlcsf935tqki3buedtqt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1-REu-FFtZMmaEKYxfUbuvgSuA1VPEn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648937385856-rgq8aa8348ljlcsf935tqki3buedtqt7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "648937385856-mrs3d5o0d01hu2vcus1f2jt85hs1kfij.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "xyz.ipydev.pillendar"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

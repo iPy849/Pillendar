@@ -2,3 +2,8 @@ export 'package:pillendar_app/widgets/login/login_form.dart';
 export 'package:pillendar_app/widgets/register/register_form.dart';
 export 'package:pillendar_app/widgets/forgot_password/forgot_password_form.dart';
 export 'package:pillendar_app/widgets/generics/center_panel.dart';
+export 'package:pillendar_app/widgets/generics/loading_screen.dart';
+export 'package:pillendar_app/widgets/main/main_layout.dart';
+export 'package:pillendar_app/widgets/main/fab.dart';
+export 'package:pillendar_app/widgets/main/pill_reminders.dart';
+export 'package:pillendar_app/widgets/main/pill_item.dart';

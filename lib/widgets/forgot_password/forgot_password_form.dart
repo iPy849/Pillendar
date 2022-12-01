@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:pillendar_app/firebase/index.dart';
 import 'package:pillendar_app/i18n.dart';
 import 'package:pillendar_app/utils/Utils.dart';
 import 'package:pillendar_app/theme/index.dart';
+import 'package:provider/provider.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -13,6 +15,23 @@ class ForgotPasswordForm extends StatefulWidget {
 
 class _ForgotPasswordForm extends State<ForgotPasswordForm> with Utils {
   final _formKey = GlobalKey<FormState>();
+  String? email;
+
+  sendMail(BuildContext context) {
+    hideKeyboard();
+    _formKey.currentState?.reset();
+    FirebaseAuthController firebaseAuthController =
+        Provider.of<FirebaseAuthController>(context, listen: false);
+
+    firebaseAuthController.firebaseForgotPassword(email!).then(
+      (value) {
+        String message = !value
+            ? i18n.getText("Forgot_password_view_auth_error_toast")
+            : i18n.getText("Forgot_password_view_auth_success_toast");
+        showToast(context, message);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +52,7 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> with Utils {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             validator: (v) {
+              email = v;
               if (v == null || v.isEmpty || !EmailValidator.validate(v)) {
                 return i18n.getText("Login_view_email_input_incorrect");
               }
@@ -59,11 +79,8 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> with Utils {
               ),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Recuperando contraseña')),
-                  );
+                  sendMail(context);
                 }
-                hideKeyboard();
               },
               child: Text(
                 i18n.getText("Forgot_password_view_submit_button"),
