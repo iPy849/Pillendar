@@ -9,6 +9,7 @@ class Navigation {
     RouteModel("/login", const LoginView()),
     RouteModel("/register", const RegisterView()),
     RouteModel("/forgot_password", const ForgotPasswordView()),
+    RouteModel("/form", const ReminderForm()),
   ];
 
   static getRoutes(BuildContext context) {

@@ -1,77 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pillendar_app/firebase/index.dart';
+import 'package:pillendar_app/models/reminder.dart';
+import 'package:provider/provider.dart';
 
-class FirebaseAuthController extends ChangeNotifier {
+class FirebaseDBController extends ChangeNotifier {
   // Singleton
-  static FirebaseAuthController? firebaseAuthController;
+  static FirebaseDBController? firebaseDBController;
 
-  static FirebaseAuthController getInstance() {
-    if (firebaseAuthController == null) {
-      FirebaseAuthController.firebaseAuthController = FirebaseAuthController();
+  static FirebaseDBController getInstance() {
+    if (firebaseDBController == null) {
+      FirebaseDBController.firebaseDBController = FirebaseDBController();
     }
-    return FirebaseAuthController.firebaseAuthController!;
+    return FirebaseDBController.firebaseDBController!;
   }
 
   // Instance
-  late FirebaseAuth firebaseAuthInstance;
+  late FirebaseFirestore firebaseDBInstance;
 
-  FirebaseAuthController() {
-    if (firebaseAuthController != null) {
+  FirebaseDBController() {
+    if (firebaseDBController != null) {
       throw Exception(
           "Para acceder a FirebaseAuthController usa el método estático \"getInstance\"");
     }
-    firebaseAuthInstance = FirebaseAuth.instance;
+    firebaseDBInstance = FirebaseFirestore.instance;
   }
 
-  Future<User?> firebaseAuthenticate(String email, String password) async {
-    try {
-      final credential = await firebaseAuthInstance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      notifyListeners();
-      return credential.user!;
-    } on FirebaseAuthException catch (e) {
-      return null;
-    } catch (e) {
-      throw Exception(e);
+  Future createData(Reminder reminder, BuildContext context) {
+    String uid = Provider.of<FirebaseAuthController>(context, listen: false)
+        .firebaseAuthInstance
+        .currentUser!
+        .uid;
+    return firebaseDBInstance
+        .collection(uid)
+        .doc(reminder.id)
+        .set(reminder.toMap());
+  }
+
+  Future<List<Reminder>> readData(BuildContext context) async {
+    String uid = Provider.of<FirebaseAuthController>(context, listen: false)
+        .firebaseAuthInstance
+        .currentUser!
+        .uid;
+    List<Reminder> reminders = [];
+    var snapshots = await firebaseDBInstance.collection(uid).get();
+
+    for (var doc in snapshots.docs) {
+      Reminder reminder = Reminder.fromMap(doc.data());
+
+      reminders.add(reminder);
     }
-  }
 
-  Future<bool> firebaseForgotPassword(String email) async {
-    try {
-      await firebaseAuthInstance.sendPasswordResetEmail(
-        email: email,
-      );
-      notifyListeners();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  Future<User?> firebaseCreateUser(String email, String password) async {
-    try {
-      final credential =
-          await firebaseAuthInstance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      notifyListeners();
-      return credential.user!;
-    } on FirebaseAuthException catch (e) {
-      return null;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  User? firebaseGoogleAuth() {
-    return null;
-  }
-
-  // TODO: Probablemente no haga esto
-  User? firebaseFacebookAuth() {
-    return null;
+    return reminders;
   }
 }

@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pillendar_app/theme/index.dart';
-import 'package:pillendar_app/widgets/main/reminder_setup_modal.dart';
+import 'package:pillendar_app/utils/Utils.dart';
 
-class FAB extends StatelessWidget {
+class FAB extends StatelessWidget with Utils {
   const FAB({super.key});
 
-  Future onTapped(BuildContext context) {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return ReminderSetupModal(reason: ReminderSetupModalReason.create);
-      },
-    );
+  void onTapped(BuildContext context) {
+    navigateToPath('/form', context);
   }
 
   @override

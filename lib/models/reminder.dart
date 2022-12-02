@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:pillendar_app/firebase/index.dart';
-import 'package:provider/provider.dart';
-
 class Reminder {
-  DateTime startDay;
-  int dosisTimeInHours;
-  String name;
-  int cycles;
+  late DateTime startDay;
+  late int dosisTimeInHours;
+  late String name;
+  late int cycles;
   late DateTime nextDay;
+
+  String get id => "$startDay-$name";
+
+  String get startDayString => startDay.toString().substring(0, 10);
 
   Reminder({
     required this.startDay,
@@ -18,15 +18,24 @@ class Reminder {
     nextDay = startDay;
   }
 
+  Reminder.fromMap(Map<String, dynamic> data) {
+    startDay = data["startDay"].toDate();
+    dosisTimeInHours = data["dosisTimeInHours"];
+    name = data["name"];
+    cycles = data["cycles"];
+  }
+
   void calculateNextDay() {
     if (--cycles < 0) return;
     nextDay = nextDay.add(Duration(hours: dosisTimeInHours));
   }
 
-  saveToFirebase(BuildContext context) {
-    String uid = Provider.of<FirebaseAuthController>(context, listen: false)
-        .firebaseAuthInstance
-        .currentUser!
-        .uid;
+  Map<String, dynamic> toMap() {
+    return {
+      "startDay": startDay,
+      "dosisTimeInHours": dosisTimeInHours,
+      "name": name,
+      "cycles": cycles
+    };
   }
 }

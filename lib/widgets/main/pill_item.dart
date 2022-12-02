@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:pillendar_app/models/reminder.dart';
 import 'package:pillendar_app/theme/index.dart';
-import 'package:pillendar_app/widgets/main/reminder_setup_modal.dart';
+import 'package:pillendar_app/utils/Utils.dart';
+import 'package:pillendar_app/views/index.dart';
 
-class PillItem extends StatelessWidget {
-  const PillItem({super.key, this.reminder});
+class PillItem extends StatelessWidget with Utils {
+  const PillItem({super.key, required this.reminder});
 
-  final Reminder? reminder;
+  final Reminder reminder;
 
-  Future loadEditionDialog(BuildContext context) {
-    // TODO: que cargue el reminder
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return ReminderSetupModal(
-          reason: ReminderSetupModalReason.edit,
-          reminder: reminder,
-        );
-      },
-    );
+  void loadEditionDialog(BuildContext context) {
+    ReminderForm.reminder = reminder;
+    navigateToPath("/form", context);
   }
 
   @override
@@ -33,13 +26,13 @@ class PillItem extends StatelessWidget {
       ),
       child: ListTile(
         title: Column(
-          children: const [
+          children: [
             Text(
-              "9:15pm",
+              reminder.startDayString,
               style: AppTextStyle.headingWhite_1,
             ),
             Text(
-              "Nombre de la pastilla",
+              reminder.name,
               style: AppTextStyle.textWhite,
             ),
           ],

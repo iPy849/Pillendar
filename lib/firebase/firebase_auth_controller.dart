@@ -31,7 +31,7 @@ class FirebaseAuthController extends ChangeNotifier {
       );
       notifyListeners();
       return credential.user!;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return null;
     } catch (e) {
       throw Exception(e);
@@ -59,18 +59,19 @@ class FirebaseAuthController extends ChangeNotifier {
       );
       notifyListeners();
       return credential.user!;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       return null;
     } catch (e) {
       throw Exception(e);
     }
   }
 
+  // NOTE: Probablemente no haga esto
   User? firebaseGoogleAuth() {
     return null;
   }
 
-  // TODO: Probablemente no haga esto
+  // NOTE: Probablemente no haga esto
   User? firebaseFacebookAuth() {
     return null;
   }
