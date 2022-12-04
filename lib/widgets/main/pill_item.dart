@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pillendar_app/firebase/index.dart';
 import 'package:pillendar_app/models/reminder.dart';
 import 'package:pillendar_app/theme/index.dart';
 import 'package:pillendar_app/utils/Utils.dart';
@@ -45,7 +46,11 @@ class PillItem extends StatelessWidget with Utils {
           ),
         ),
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () => FirebaseDBController.getInstance()
+              .deleteData(reminder, context)
+              .then(
+                (value) => showToast(context, "Recordatorio borrado con éxito"),
+              ),
           icon: const Icon(
             Icons.delete,
             color: Colors.redAccent,

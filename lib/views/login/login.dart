@@ -22,7 +22,10 @@ class _LoginViewState extends State<LoginView> with Utils {
       FirebaseAuthController firebaseAuthController =
           Provider.of<FirebaseAuthController>(context, listen: false);
       if (firebaseAuthController.firebaseAuthInstance.currentUser != null) {
-        replaceCurrentPath("/main", context);
+        // replaceCurrentPath("/main", context);
+        setState(() {
+          showView = true;
+        });
       } else {
         setState(() {
           showView = true;

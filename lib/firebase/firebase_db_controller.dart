@@ -37,20 +37,22 @@ class FirebaseDBController extends ChangeNotifier {
         .set(reminder.toMap());
   }
 
-  Future<List<Reminder>> readData(BuildContext context) async {
+  Stream<QuerySnapshot> readData(BuildContext context) {
     String uid = Provider.of<FirebaseAuthController>(context, listen: false)
         .firebaseAuthInstance
         .currentUser!
         .uid;
-    List<Reminder> reminders = [];
-    var snapshots = await firebaseDBInstance.collection(uid).get();
+    Stream<QuerySnapshot> snapshots =
+        firebaseDBInstance.collection(uid).snapshots();
+    return snapshots;
+  }
 
-    for (var doc in snapshots.docs) {
-      Reminder reminder = Reminder.fromMap(doc.data());
+  Future deleteData(Reminder reminder, BuildContext context) async {
+    String uid = Provider.of<FirebaseAuthController>(context, listen: false)
+        .firebaseAuthInstance
+        .currentUser!
+        .uid;
 
-      reminders.add(reminder);
-    }
-
-    return reminders;
+    return firebaseDBInstance.collection(uid).doc(reminder.id).delete();
   }
 }

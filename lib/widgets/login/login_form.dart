@@ -47,8 +47,15 @@ class _LoginFormState extends State<LoginForm> with Utils {
         verticalDirection: VerticalDirection.down,
         children: [
           Center(
-            child: Text(i18n.getText("Login_view_title"),
-                style: AppTextStyle.headingWhite_1),
+            // child: Text(i18n.getText("Login_view_title"),
+            //     style: AppTextStyle.headingWhite_1),
+            child: Image.asset(
+              "assets/pillendar_logo.png",
+              width: 100,
+              height: 100,
+              color: AppColors.darkerPrimary,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(
             height: AppStyleConstants.separation,

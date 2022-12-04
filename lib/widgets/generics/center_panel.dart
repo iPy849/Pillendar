@@ -15,7 +15,6 @@ class CenterPanelWidget extends StatelessWidget {
       child: Center(
         // Caja de formulario
         child: Container(
-          height: double.infinity,
           width: double.infinity,
           decoration: const BoxDecoration(
             color: AppColors.primary,
